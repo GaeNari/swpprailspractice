@@ -34,6 +34,18 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to articles_path
+  end
+
+  def count
+    num_of_articles = Article.all.count
+    render :json => {count: num_of_articles}
+  end
+
   private
   def article_params
     params.require(:article).permit(:title, :text)
